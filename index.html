@@ -6,5 +6,23 @@
 </head>
 <body>
   restaurant-finder
+  <img id='map'>
+  <script>
+    var success = function (position) {
+      console.log(position)
+      var location = [position.coords.latitude, position.coords.longitude].join(',')
+      var map = document.getElementById('map')
+      map.src = 'http://maps.googleapis.com/maps/api/staticmap?size=512x512&markers=size:mid|color:red|' + location
+    }
+    navigator.geolocation.getCurrentPosition(success)
+
+    locationObject = {
+      coords: {
+        latitude: 0,
+        longitude: 0
+      }
+    }
+    success(locationObject)
+  </script>
 </body>
 </html>
