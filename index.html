@@ -4,25 +4,23 @@
   <meta charset="UTF-8">
   <title></title>
 </head>
-<body>
-  restaurant-finder
-  <img id='map'>
-  <script>
-    var success = function (position) {
-      console.log(position)
-      var location = [position.coords.latitude, position.coords.longitude].join(',')
-      var map = document.getElementById('map')
-      map.src = 'http://maps.googleapis.com/maps/api/staticmap?size=512x512&markers=size:mid|color:red|' + location
-    }
-    navigator.geolocation.getCurrentPosition(success)
-
-    locationObject = {
-      coords: {
-        latitude: 0,
-        longitude: 0
-      }
-    }
-    success(locationObject)
-  </script>
+<body ng-app='app'>
+  <div ng-controller='RestaurantCtrl'>
+    restaurant-finder
+    <ul>
+      <li ng-repeat='restaurant in restaurants'>
+        <a href='/{{restaurant.name}}'>{{restaurant.name}}</a>
+      </li>
+    </ul>
+    <img src='http://maps.googleapis.com/maps/api/staticmap?size=300x300&markers={{addresses()}}&key=AIzaSyDeXHCJ2vgAVqFSN7Dw4wfyDZ3-zO1-jlU'>
+    <form ng-submit='addRestaurant()'>
+      <input ng-model='restaurant.name'>
+      <input ng-model='restaurant.address'>
+      <h1>{{restaurant.name}} at {{restaurant.address}}</h1>
+      <input type='submit'>
+    </form>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
